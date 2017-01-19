@@ -1,0 +1,33 @@
+﻿@model AspNetMVCDevControllerConception.ORM.Test    
+@{
+    ViewBag.Title = "Details";
+}
+
+@using (Html.BeginForm("TestResults", "Home", FormMethod.Post))
+{
+    <input type="hidden" name="testId" value="@Model.Id">
+    <h1>@Model.Name</h1>
+    foreach (var question in Model.Questions)
+    {
+        <h5>@question.Text</h5>
+        <div class="@Model.Name">
+            
+            @foreach (var anwer in question.Answers)
+            {
+                <input type="radio" name="@question.Id" value="@anwer.Id" />
+                <label> @anwer.Text</label>
+                
+            }
+        </div>
+    }
+    <input type="submit" value="Ok"/>
+}
+
+<script>
+    var $questions = $('.@Model.Name');
+    jQuery.each($questions, function () {
+            $(this).find('input').first().attr('checked', 'true');
+        });
+</script>
+
+

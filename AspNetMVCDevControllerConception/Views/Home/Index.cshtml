@@ -1,0 +1,17 @@
+﻿@model List<AspNetMVCDevControllerConception.ORM.Test>
+@{
+    ViewBag.Title = "Home Page";
+}
+<h1>Hello @ViewBag.Name</h1>
+
+@if (@Model.Any())
+{
+    <ul>
+        @foreach (var test in @Model)
+        {
+            <li>
+                @Html.ActionLink(test.Name, "Details", new {id = test.Id})
+            </li>
+        }
+    </ul>
+}

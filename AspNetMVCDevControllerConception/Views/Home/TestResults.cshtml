@@ -1,0 +1,15 @@
+﻿@using System.Drawing
+@model byte[]
+@{
+    ViewBag.Title = "TestResults";
+}
+
+<h2>TestResults</h2>
+@*@{
+    var base64 = Convert.ToBase64String(Model);
+    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+}*@
+
+@*<img src="@imgSrc" />*@
+
+<img src="~/Home/GenerateChart"/>
