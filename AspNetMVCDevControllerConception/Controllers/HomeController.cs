@@ -32,8 +32,8 @@ namespace AspNetMVCDevControllerConception.Controllers
             return View(tests);
         }
 
-        [CustomActionFilter]
-        [HttpGet]
+        [Filter3]
+        [CustomActionFilter(Order = 1)]
         public ActionResult Details(int id)
         {
             var test = _entityModel.Tests.FirstOrDefault(t => t.Id == id) ?? new Test();
