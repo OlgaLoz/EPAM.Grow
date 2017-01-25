@@ -30,6 +30,12 @@
         </div>
     </div>
 }
+<div id="questions">
+    <button class="btn btn-sm" id="addQuestion">
+        Add question
+    </button>
+</div>
+
 
 <div class="question">
     <button class="btn btn-sm" id="addAnswer">
@@ -40,14 +46,8 @@
 
     <div class="answer-variant">
         <input type="text">
-
-        <div class="radio-inline">
-            <input type="radio" name="optradio">
-        </div>
-
+        <input type="radio" name="optradio">
     </div>
-
-   
 </div>
 
 <div>
@@ -62,16 +62,36 @@
     $("#addAnswer")
         .on("click",
             function () {
-               console.log("click");
+                console.log("click");
                var $answerVar = $(".answer-variant").last().clone();
-                console.log($($answerVar));
-               console.log($('.answer-variant input[type="text"]'));
                $($answerVar).find(":input[type='text']").val("");
-               console.log($(".question"));
                var $customDiv = $("<div>").addClass("answer-variant");
-               console.log($customDiv);
                $customDiv.appendTo($(".question"));
                 $answerVar.appendTo($(".question"));
                 $(".question").append($($answerVar));
             });
+
+    $("#addQuestion")
+    .on("click",
+        function () {
+            var className = "question";
+            var questionId = className + $("." + className).length;
+            console.log(questionId);
+            var $question = $("<div>").addClass(className).attr("id", questionId);
+            var $addAnswerButton = $("<button>").addClass("btn btn-sm").attr("id", "addAnswer").html("Add answer");
+            $addAnswerButton.appendTo($question);
+            $question.appendTo($("#questions"));
+        });
+
+    function createAnswer(questionId) {
+        var className = "answer-variant";
+        var answerId = className + $("#" + questionId + " ." + className).length;
+        console.log(answerId);
+        var $answer = $("<div>").addClass(className).attr("id", answerId);
+        $answer.appendTo($("#" + questionId));
+    }
+
+    function createQuestion(parameters) {
+        
+    }
 </script>
