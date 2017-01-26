@@ -22,6 +22,14 @@
                 @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
             </div>
         </div>
+        
+        
+        <div id="questions">
+            <button class="btn btn-sm" id="addQuestion" type="button">
+                Add question
+            </button>
+        </div>
+
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
@@ -30,25 +38,7 @@
         </div>
     </div>
 }
-<div id="questions">
-    <button class="btn btn-sm" id="addQuestion">
-        Add question
-    </button>
-</div>
 
-
-<div class="question">
-    <button class="btn btn-sm" id="addAnswer">
-        Add answer variant
-    </button>
-
-    <input type="text" name="questionText"/>
-
-    <div class="answer-variant">
-        <input type="text">
-        <input type="radio" name="optradio">
-    </div>
-</div>
 
 <div>
     @Html.ActionLink("Back to List", "Index")
@@ -59,39 +49,34 @@
 }
 
 <script>
-    $("#addAnswer")
+    $("#addQuestion")
         .on("click",
             function () {
-                console.log("click");
-               var $answerVar = $(".answer-variant").last().clone();
-               $($answerVar).find(":input[type='text']").val("");
-               var $customDiv = $("<div>").addClass("answer-variant");
-               $customDiv.appendTo($(".question"));
-                $answerVar.appendTo($(".question"));
-                $(".question").append($($answerVar));
+                var className = "question";
+                var questionId = className + $("." + className).length;
+                var $question = $("<div>").addClass(className).attr("id", questionId);
+                var $number = $("<label>").html($("." + className).length + 1);
+                $number.appendTo($question);
+                var $addAnswerButton = $("<button>").attr("type", "button").addClass("btn btn-sm").html("Add answer");
+                var $questionText = $("<input />", { type: "text", name: "question" });
+                $questionText.appendTo($question);
+                $($questionText).wrap("<div class='new'></div>");
+                $addAnswerButton.appendTo($question);
+                $($addAnswerButton).on("click", function() {
+                    createAnswer(questionId);
+                });
+                $question.appendTo($("#questions"));
             });
-
-    $("#addQuestion")
-    .on("click",
-        function () {
-            var className = "question";
-            var questionId = className + $("." + className).length;
-            console.log(questionId);
-            var $question = $("<div>").addClass(className).attr("id", questionId);
-            var $addAnswerButton = $("<button>").addClass("btn btn-sm").attr("id", "addAnswer").html("Add answer");
-            $addAnswerButton.appendTo($question);
-            $question.appendTo($("#questions"));
-        });
 
     function createAnswer(questionId) {
         var className = "answer-variant";
-        var answerId = className + $("#" + questionId + " ." + className).length;
-        console.log(answerId);
-        var $answer = $("<div>").addClass(className).attr("id", answerId);
+        var $answer = $("<div>").addClass(className);
+        var $number = $("<label>").html($("#" + questionId + " ." + className).length + 1);
+        $number.appendTo($answer);
+        var $input = $("<input />", { type: "text" , name: "answer" + questionId });
+        var $radioinput = $("<input />", { type: "radio", name: questionId, value: $("#" + questionId + " ." + className).length });
+        $input.appendTo($answer);
+        $radioinput.appendTo($answer);
         $answer.appendTo($("#" + questionId));
-    }
-
-    function createQuestion(parameters) {
-        
     }
 </script>

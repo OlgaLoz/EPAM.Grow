@@ -9,6 +9,6 @@ namespace AspNetMVCDevControllerConception.ViewModels
         public string Text { get; set; }
         public int RightAnswerId { get; set; }
 
-        public virtual ICollection<AnswerViewModel> Answers { get; set; } 
+        public virtual List<AnswerViewModel> Answers { get; set; } 
     }
 }
